@@ -3,14 +3,18 @@
     <h1>Galeria</h1>
 
     <div class="galeria">
-      <div v-for="(pokemon, i) in pokemones" :key="i" class="card">
-        <img :src="pokemon.src" class="card-img-top" />
+      <div v-for="(juego, i) in juegos" :key="i" class="card">
+        <img :src="(`${juego.background_image}`)" class="card-img-top" />
         <div class="card-body">
-          <h5 class="card-title">{{ pokemon.name }}</h5>
+          <h5 class="card-title">{{ juego.name }}</h5>
           <p class="card-text">
-            {{ pokemon.id }}
+            {{ juego.id }}
+            {{ juego.rating }}
+            {{ juego.released }}
+            {{ juego.updated }}
           </p>
           <button
+            @click="juegoSelected = juego.id"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             class="btn btn-success"
@@ -26,18 +30,24 @@
       <div class="modal-dialog">
         <div class="modal-body w-75 m-auto">
           <div class="modal-content p-4">
+            {{ juegoSelected }}
             <h4>Agregar una opinión</h4>
             <hr />
             <div>
               <label>Nombre:</label>
-              <input class="form-control" />
+              <input v-model="opinion.usuario.nombre" class="form-control" />
             </div>
             <div>
               <label>Opinión:</label>
-              <textarea class="form-control"></textarea>
+              <textarea
+                v-model="opinion.descripcion"
+                class="form-control"
+              ></textarea>
             </div>
             <div class="mt-4">
-              <button class="btn btn-primary">Agregar</button>
+              <button @click="agregarOpinion" class="btn btn-primary">
+                Agregar
+              </button>
             </div>
           </div>
         </div>
@@ -47,12 +57,40 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "Home",
+  methods: {
+    ...mapMutations(["AGREGAR_OPINION"]),
+    agregarOpinion() {
+      const { juegoSelected } = this;
+      const opinion = {
+        ...this.opinion,
+        usuario: { ...this.opinion.usuario },
+      };
+      opinion.idJuego = juegoSelected;
+      opinion.id = Math.floor(Math.random() * 999);
+      this.AGREGAR_OPINION(opinion);
+      // Limpiar formulario
+      this.opinion.usuario = { nombre: "" };
+      this.opinion.descripcion = "";
+    },
+  },
+  data() {
+    return {
+      juegoSelected: null,
+      opinion: {
+        usuario: {
+          nombre: "",
+        },
+        descripcion: "",
+      },
+    };
+  },
   computed: {
-    ...mapState(["pokemones"]),
+    ...mapState(["juegos", "opiniones"]),
+    ...mapGetters(["getJuegosAndOpiniones"]),
   },
 };
 </script>

@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Administracion from "../views/Administracion.vue";
-
+import Editar from "../views/Editar.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -15,6 +15,12 @@ const routes = [
     path: "/administracion",
     name: "Administracion",
     component: Administracion
+  },
+  {
+    path: "/editar/:id",
+    name: "Editar",
+    props: true,
+    component: Editar
   }
 ];
 

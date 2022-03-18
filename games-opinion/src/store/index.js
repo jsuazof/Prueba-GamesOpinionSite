@@ -6,35 +6,62 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    pokemones: []
+    juegos: [],
+    opiniones: []
   },
   mutations: {
-    SET_POKEMONES(state, pokemones) {
-      state.pokemones = pokemones;
+    SET_JUEGOS(state, juegos) {
+      state.juegos = juegos;
+    },
+    AGREGAR_OPINION(state, opinion) {
+      state.opiniones.push(opinion);
+    },
+    ELIMINAR_OPINION(state, indice) {
+      state.opiniones.splice(indice, 1);
     }
   },
   actions: {
-    async get_Pokemones({ commit }) {
-      const endopoint = "https://pokeapi.co/api/v2/pokemon?limit=2";
-      const { data } = await axios.get(endopoint);
-      const { results } = data;
-      const pokemones = [];
-      for (let pokemon of results) {
-        const { data: pokemonData } = await axios.get(pokemon.url);
-        const {
-          sprites: { front_default: src },
-          name,
-          id
-        } = pokemonData;
-        const pokemonObject = { id, name, src };
-        pokemones.push(pokemonObject);
-      }
+    eliminar_Opinion({ commit, state }, id) {
+      const { opiniones } = state;
+      const indiceDeLaOpinion = opiniones.findIndex((o) => o.id === id);
+      commit("ELIMINAR_OPINION", indiceDeLaOpinion);
+    },
+    async get_Juegos({ commit }) {
+      const url = "/games.json";
+      const response = await axios.get(url);
+      const {data: juegos} = response
+      
 
-      commit("SET_POKEMONES", pokemones);
+      commit("SET_JUEGOS", juegos);
+    }
+  },
+  getters: {
+    getJuegosAndOpiniones(state) {
+      const { juegos, opiniones } = state;
+      const getFullData = [];
+      opiniones.forEach((opinion) => {
+        const juegoRelacionadoConLaOpinion = juegos.find((juego) => {
+          return juego.id === opinion.idJuego;
+        });
+
+        const juegoYOpinionUnificada = {
+          opinion: { ...opinion },
+          juego: { ...juegoRelacionadoConLaOpinion }
+        };
+
+        getFullData.push(juegoYOpinionUnificada);
+      });
+
+      return getFullData;
+    },
+    getOpinionById: (state) => (id) => {
+      const { opiniones } = state;
+      const opinion = opiniones.find((o) => o.id == id)
+      return opinion;
     }
   }
 });
 
-store.dispatch("get_Pokemones");
+store.dispatch("get_Juegos");
 
 export default store;
