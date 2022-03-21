@@ -7,7 +7,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     juegos: [],
-    opiniones: []
+    opiniones: [],
   },
   mutations: {
     SET_JUEGOS(state, juegos) {
@@ -18,9 +18,21 @@ const store = new Vuex.Store({
     },
     ELIMINAR_OPINION(state, indice) {
       state.opiniones.splice(indice, 1);
-    }
+    },
+    MODIFICAR_OPINION(state, { indice, opinion }) {
+      const opiniones = [...state.opiniones];
+      opiniones[indice] = opinion;
+      state.opiniones = opiniones;
+    },
   },
   actions: {
+    modificar_Opinion({ commit, state }, opinion) {
+      const { opiniones } = state;
+      const { id } = opinion;
+
+      const indiceDeLaOpinion = opiniones.findIndex((o) => o.id === id);
+      commit("MODIFICAR_OPINION", { indice: indiceDeLaOpinion, opinion });
+    },
     eliminar_Opinion({ commit, state }, id) {
       const { opiniones } = state;
       const indiceDeLaOpinion = opiniones.findIndex((o) => o.id === id);
@@ -29,11 +41,10 @@ const store = new Vuex.Store({
     async get_Juegos({ commit }) {
       const url = "/games.json";
       const response = await axios.get(url);
-      const {data: juegos} = response
-      
+      const { data: juegos } = response;
 
       commit("SET_JUEGOS", juegos);
-    }
+    },
   },
   getters: {
     getJuegosAndOpiniones(state) {
@@ -45,8 +56,8 @@ const store = new Vuex.Store({
         });
 
         const juegoYOpinionUnificada = {
-          opinion: { ...opinion },
-          juego: { ...juegoRelacionadoConLaOpinion }
+          ...opinion,
+          juego: { ...juegoRelacionadoConLaOpinion },
         };
 
         getFullData.push(juegoYOpinionUnificada);
@@ -56,10 +67,10 @@ const store = new Vuex.Store({
     },
     getOpinionById: (state) => (id) => {
       const { opiniones } = state;
-      const opinion = opiniones.find((o) => o.id == id)
+      const opinion = opiniones.find((o) => o.id == id);
       return opinion;
-    }
-  }
+    },
+  },
 });
 
 store.dispatch("get_Juegos");

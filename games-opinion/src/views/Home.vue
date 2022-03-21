@@ -3,15 +3,17 @@
     <h1>Galeria</h1>
 
     <div class="galeria">
-      <div v-for="(juego, i) in juegos" :key="i" class="card">
-        <img :src="(`${juego.background_image}`)" class="card-img-top" />
+      <div v-for="(juego, i) in juegos" :key="i" class="card" >
+        <img :src="(`${juego.background_image}`)" class="card-img-top" style="max-height: 7.8rem"  />
         <div class="card-body">
           <h5 class="card-title">{{ juego.name }}</h5>
-          <p class="card-text">
-            {{ juego.id }}
-            {{ juego.rating }}
-            {{ juego.released }}
-            {{ juego.updated }}
+          <p class="card-text" >
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Id: {{ juego.id }}</li>
+              <li class="list-group-item">Rating: {{ juego.rating }}</li>
+              <li class="list-group-item">Released: {{ juego.released }}</li>
+              <li class="list-group-item">Updated: {{ juego.updated }}</li>
+            </ul> 
           </p>
           <button
             @click="juegoSelected = juego.id"
@@ -45,7 +47,11 @@
               ></textarea>
             </div>
             <div class="mt-4">
-              <button @click="agregarOpinion" class="btn btn-primary">
+              <button
+               data-bs-toggle="modal"
+               data-bs-target="#exampleModal"
+               @click="agregarOpinion" 
+               class="btn btn-primary">
                 Agregar
               </button>
             </div>
