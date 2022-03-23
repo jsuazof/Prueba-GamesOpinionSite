@@ -2,8 +2,10 @@
   <div class="home">
     <h1>Galeria</h1>
 
-    <div class="galeria">
-      <div v-for="(juego, i) in juegos" :key="i" class="card" >
+      <div class="container">
+        <div class="row">
+      <div class="col-12  col-md-4" v-for="(juego, i) in juegos" :key="i">
+         <div  class="card" >
         <img :src="(`${juego.background_image}`)" class="card-img-top" style="max-height: 7.8rem"  />
         <div class="card-body">
           <h5 class="card-title">{{ juego.name }}</h5>
@@ -16,7 +18,7 @@
             </ul> 
           </p>
           <button
-            @click="juegoSelected = juego.name"
+            @click="juegoSelected = juego.id"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             class="btn btn-success"
@@ -25,14 +27,17 @@
           </button>
         </div>
       </div>
+      </div>
+     
     </div>
+      </div>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal">
       <div class="modal-dialog">
         <div class="modal-body w-75 m-auto">
           <div class="modal-content p-4">
-            <h5>Agregar opinión para el juego: {{ juegoSelected }} </h5>
+            <h5>Agregar opinión para el juego: {{ juego_Selected.name }} </h5>
             <hr />
             <div>
               <label>Nombre:</label>
@@ -96,17 +101,14 @@ export default {
   },
   computed: {
     ...mapState(["juegos", "opiniones"]),
-    ...mapGetters(["getJuegosAndOpiniones"]),
+    ...mapGetters(["getJuegosAndOpiniones", "getJuegoById"]),
+    juego_Selected() {
+      const { juegoSelected } = this;
+      return this.getJuegoById(juegoSelected) || {};
+    },
   },
 };
 </script>
 
 <style >
-.galeria {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  width: 80%;
-  margin: auto;
-}
 </style>

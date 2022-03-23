@@ -1,8 +1,12 @@
 <template>
   <div>
     <h1>Administración de opiniones</h1>
-
-    <table class="table w-75 m-auto">
+  <div class="container" v-if="existenOpiniones">
+    <div class="alert alert-danger">
+      No existen opiniones para editar!!!
+    </div>
+  </div>
+    <table v-else class="table w-75 m-auto">
       <thead>
         <tr>
           <th>ID</th>
@@ -43,6 +47,9 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
     ...mapGetters(["getJuegosAndOpiniones"]),
+    existenOpiniones(){
+      return !this.getJuegosAndOpiniones.length
+    }
   },
   methods: {
     ...mapActions(["eliminar_Opinion"]),

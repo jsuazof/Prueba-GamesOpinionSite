@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 import Administracion from "../views/Administracion.vue";
 import Editar from "../views/Editar.vue"
 import Navbar from "../components/Navbar.vue"
-import Opiniones from "../components/Opiniones.vue"
+import Opiniones from "../views/Opiniones.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -33,6 +33,15 @@ const routes = [
     path: "/Opiniones",
     name: "Opiniones",
     component: Opiniones
+  },
+  {
+   path: "/404",
+   name: "Error",
+   component: ()=>import("../views/Error.vue")
+  },
+  {
+    path: "/:catchAll(.*)",
+    redirect: "404"
   }
 ];
 
