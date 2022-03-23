@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Administracion from "../views/Administracion.vue";
 import Editar from "../views/Editar.vue"
+import Navbar from "../components/Navbar.vue"
+import Opiniones from "../components/Opiniones.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -21,6 +23,16 @@ const routes = [
     name: "Editar",
     props: true,
     component: Editar
+  },
+  {
+    path: "/navbar",
+    name: "Navbar",
+    component: Navbar
+  },
+  {
+    path: "/Opiniones",
+    name: "Opiniones",
+    component: Opiniones
   }
 ];
 

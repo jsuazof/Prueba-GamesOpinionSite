@@ -1,8 +1,10 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href=""
+          ><i class="bi bi-headset"> Games Opinion</i></a
+        >
         <button
           class="navbar-toggler"
           type="button"
@@ -14,19 +16,23 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse d-flex menu-icon" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <router-link class="nav-link" to="/"
+                ><i class="bi bi-house-fill"></i> Home</router-link
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <router-link class="nav-link" to="/opiniones"
+                ><i class="bi bi-chat-square-text-fill"> </i
+                > Opiniones</router-link
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
+              <router-link class="nav-link" to="/administracion"
+                ><i class="bi bi-people-fill"></i> Administración</router-link
+              >
             </li>
           </ul>
         </div>
@@ -40,4 +46,7 @@ export default {};
 </script>
 
 <style>
+.menu-icon {
+  justify-content: end;
+}
 </style>

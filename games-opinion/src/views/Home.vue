@@ -16,7 +16,7 @@
             </ul> 
           </p>
           <button
-            @click="juegoSelected = juego.id"
+            @click="juegoSelected = juego.name"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             class="btn btn-success"
@@ -32,18 +32,18 @@
       <div class="modal-dialog">
         <div class="modal-body w-75 m-auto">
           <div class="modal-content p-4">
-            {{ juegoSelected }}
-            <h4>Agregar una opinión</h4>
+            <h5>Agregar opinión para el juego: {{ juegoSelected }} </h5>
             <hr />
             <div>
               <label>Nombre:</label>
-              <input v-model="opinion.usuario.nombre" class="form-control" />
+              <input v-model="opinion.usuario.nombre" class="form-control" placeholder="Jorge Suazo"/>
             </div>
             <div>
               <label>Opinión:</label>
               <textarea
                 v-model="opinion.descripcion"
                 class="form-control"
+                placeholder="Tú opinión debe ir aquí"
               ></textarea>
             </div>
             <div class="mt-4">
