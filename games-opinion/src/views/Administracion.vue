@@ -31,7 +31,7 @@
             </button>
             <button
               @click="eliminar_Opinion(opinion.id)"
-              class="btn btn-danger"
+              class="btn btn-danger mx-2"
             >
               Eliminar
             </button>

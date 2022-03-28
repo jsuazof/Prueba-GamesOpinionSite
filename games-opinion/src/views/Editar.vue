@@ -16,6 +16,10 @@
          @click="modificarOpinion">
           Guardar cambios
         </button>
+        <button class="btn btn-success mt-2 mx-2"
+         @click="$router.push('/administracion')">
+          Regresar
+        </button>
       </div>
     </div>
   </div>

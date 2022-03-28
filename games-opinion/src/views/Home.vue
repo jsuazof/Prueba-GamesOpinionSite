@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Galeria</h1>
+    <h1>Galeria de Juegos</h1>
 
       <div class="container">
         <div class="row">

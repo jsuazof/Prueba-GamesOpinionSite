@@ -14,7 +14,7 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="collapse navbar-collapse menu-icon" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <router-link class="nav-link" to="/"><i class="bi bi-house-fill"></i> Home</router-link>
             <router-link class="nav-link" to="/opiniones"><i class="bi bi-chat-square-text-fill"></i> Opiniones</router-link>
@@ -35,7 +35,6 @@ export default {};
   justify-content: end;
 }
 </style>
-
 
 
 
