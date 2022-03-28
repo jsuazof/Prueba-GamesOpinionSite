@@ -24,7 +24,7 @@
           </h2>
           <div
             :id="`collapse-${opinion.id}`"
-            class="accordion-collapse collapse show"
+            class="accordion-collapse collapse"
             aria-labelledby="headingOne"
             data-bs-parent="#accordionExample"
           >
